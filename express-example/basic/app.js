@@ -9,10 +9,11 @@ const port = 3000;
 // Build-in Middleware
 app.use('/static', express.static(path.join(__dirname, 'public')));
 
+// Application Middleware
 app.use('/todo', todo);
 
 app.get('/', function(req, res){
-    res.send(`home page ${req.url}`);
+    res.sendFile(`${__dirname}/home.html`);
 });
 
 app.get('/about', function(req, res){
@@ -24,7 +25,8 @@ app.post('/', function(req, res){
 });
 
 app.all('/all', function(req, res){
-   res.send(`handle all request ${req.url}`);
+    console.log(req.query);
+   res.send(`handle all request ${req.url} = ${JSON.stringify(req.query)}`);
 });
 
 app.listen(port, () => console.log(`Listening on port ${port}`));
